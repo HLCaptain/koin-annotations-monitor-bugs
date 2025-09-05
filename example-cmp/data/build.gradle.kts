@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.kotlinxSerialization)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.allopen)
 }
 
 kotlin {
@@ -36,6 +37,9 @@ kotlin {
             implementation(libs.ktor.client.core)
             implementation(libs.ktor.client.content.negotiation)
             implementation(libs.ktor.serialization.kotlinx.json)
+            implementation(libs.kotzilla.sdk)
+
+            implementation(libs.ktor.client.core)
 
             implementation(libs.koin.core)
             api(libs.koin.annotations)
@@ -98,4 +102,8 @@ android {
     dependencies {
         debugImplementation(libs.androidx.compose.ui.tooling)
     }
+}
+
+allOpen {
+    annotation("org.koin.core.annotation.Monitor")
 }

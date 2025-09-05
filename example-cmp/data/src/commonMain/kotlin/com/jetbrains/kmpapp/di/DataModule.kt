@@ -16,10 +16,13 @@ class DataModule {
     @Single
     fun json() = Json { ignoreUnknownKeys = true }
 
-    @Single
-    fun httpClient(json: Json) = HttpClient {
-        install(ContentNegotiation) {
-            json(json, contentType = ContentType.Any)
-        }
-    }
+    @Single(binds = [List::class])
+    fun httpClients(json: Json): List<HttpClient> = listOf(
+        HttpClient {
+            install(ContentNegotiation) {
+                json(json, contentType = ContentType.Any)
+            }
+        },
+        HttpClient() // random HTTP client
+    )
 }
